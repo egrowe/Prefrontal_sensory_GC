@@ -11,16 +11,16 @@ To address this, we reanalysed EEG data from a no-report inattentional blindness
 
 Below we include the scripts used to preprocess the raw EEG files to obtain to GC stimates from sensory to PFC ROIs before applying classification analysis to determine whether these input patterns can differentiate between FACE and RANDOM stimuli.
 
-List of scripts:
-s01a_EEG_preProcessing.m
-s01b_rmLineNoise.m
-s01c_final_EEG_preProcessing.m
-s02_sourceInv.m
-s03_extractSW.m
-s04_topCoord.m
-s05_applyGC_setupDecode.m
-s06_decode_GC_F.m
-s07_decode_SWaveGrouped.m
+List of scripts:  <br />
+s01a_EEG_preProcessing.m  <br />
+s01b_rmLineNoise.m  <br />
+s01c_final_EEG_preProcessing.m  <br />
+s02_sourceInv.m  <br />
+s03_extractSW.m  <br />
+s04_topCoord.m  <br />
+s05_applyGC_setupDecode.m  <br />
+s06_decode_GC_F.m  <br />
+s07_decode_SWaveGrouped.m  <br />
 
 
 # Description of each script
