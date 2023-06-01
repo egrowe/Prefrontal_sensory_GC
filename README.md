@@ -1,4 +1,5 @@
 # Prefrontal_sensory_GC
+Code supporting Rowe, Garrido & Tsuchiya (2023)
 
 Current theories of consciousness can be categorized to some extent by their predictions about the role of the prefrontal cortex (PFC) in conscious perception. One family of theories propose that the PFC is necessary for conscious perception. The other family postulates that the PFC is not necessary and that other areas (e.g., posterior cortical areas) are more important for conscious perception. 
 
