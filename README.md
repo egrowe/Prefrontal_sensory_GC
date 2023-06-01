@@ -69,7 +69,7 @@ Outputs: As above (but now we have a source-level matrix assigned to these files
 ****************************************************************
 s03_extractSW.m
 
-Determine which voxel coordinates across the brain belong to each of the 8 defined ROIs: left and right Occipital cortex, Fusiform Region, dorsal-rostral prefrontal cortex and ventro-orbital prefrontal cortex.
+Determine which voxel coordinates across the brain belong to each of the 8 defined ROIs: left and right Occipital cortex, Fusiform Region, dorsal-rostral prefrontal cortex (dr-PFC) and ventro-lateral prefrontal cortex (vo-PFC).
 
 Using this information, extract each of the single-trial source reconstructed estimates from EACH of the ROIs and save them in a file that will be used for the Granger Causality estimation in the next script.
 
