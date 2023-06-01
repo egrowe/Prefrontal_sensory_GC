@@ -21,7 +21,7 @@ s05_applyGC_setupDecode.m
 s06_decode_GC_F.m
 
 
-# Purpose of each of the scripts
+# Description of each of the scripts
 s01a_EEG_preProcessing.m
 
 Here we take the raw EEG files per participant and assign the channels and trial type triggers.
@@ -34,7 +34,7 @@ Inputs: Raw EEG files in EDF format: for example, 'P0002_Move_Markers.edf'
 Outputs: Partially pre-processed EEG data split by FACE or RANDOM trials: 'e_random_aEBn_noHP_spmeeg_P0002_Move_Markers.mat'
 
 
-********************************
+****************************************************************
 s01b_rmLineNoise.m
 
 Due to the presence of 60 Hz line noise in some participant's data (which was interferring with the decoding analysis), we removed the line noise per participant and FACE or RANDOM condition before implementing the final pre-processing script
@@ -45,7 +45,7 @@ Outputs: ae_rm_final_random_aEBn_noHP_spmeeg_P0002_Move_Markers.mat
          ae_rm_final_faces_aEBn_noHP_spmeeg_P0002_Move_Markers
 
 
-********************************
+****************************************************************
 s01c_final_EEG_preProcessing.m
 
 The final preprcoessing step of baseline correct is applied to the datefiles with line noise removed (rmline) after we split the participant FACE and RANDOM trial files into INDIVIDUAL files per trial (we also remove any noisy trials or those with a button response).
@@ -56,7 +56,7 @@ Outputs:
 bm_Sae_rm_final_faces_aEBn_noHP_P0002_Phase1_-100to500ms_trial_X.mat (where X will equal from 1 to the number of trials)
 bm_Sae_rm_final_random_aEBn_noHP_P0002_Phase1_-100to500ms_trial_X.mat
 
-********************************
+****************************************************************
 s02_sourceInv.m
 
 We can now take the single-trial ERPs and apply source conversion to determine cortical activity across the entire 3D brain during each trial (total of 8,196 voxels). For this, we rely on the SPM in-built source reconstruction function that utilises the Mutliple Sparse Priors greedy search method.
@@ -66,7 +66,7 @@ Intputs: bm_Sae_rm_final_faces_aEBn_noHP_P0002_Phase1_-100to500ms_trial_X.mat
 Outputs: As above (but now we have a source-level matrix assigned to these files and sourcewaves images)
 
 
-********************************
+****************************************************************
 s03_extractSW.m
 
 Determine which voxel coordinates across the brain belong to each of the 8 defined ROIs: left and right Occipital cortex, Fusiform Region, dorsal-rostral prefrontal cortex and ventro-orbital prefrontal cortex.
@@ -79,7 +79,7 @@ Outputs: Final_P0002_PhaseX_rmline_0to500ms_faces_Source_Waveform_at_for_ALL_tri
 Final_P0002_PhaseX_rmline_0to500ms_random_Source_Waveform_at_for_ALL_trials_Coords_from_1_to_8196.mat 
 CoordIdxs_for_P0002_all8196_Phase_X.mat 
 
-********************************
+****************************************************************
 s04_topCoord.m
 
 Using the extracted source waveforms from each voxel, we now want to determine (using the data from Phase 3), which (single) voxel within each ROI has the 'greatest difference between the FACE and RANDOM trails' (as evidenced by the highest t-statistic at any point within the 0 to 500 ms time window).
@@ -93,20 +93,22 @@ Inputs: Coordinates_8196_voxels_byROI.mat (this determines which voxel coordinat
 Outputs: CoordSorted_rmline_P0002_PhaseX_EBRem_XXX_by_TstatOverTime_0_to_500ms.mat (where X = 1 to 3 and XXX = one of the 8 ROIs)
 
 
-********************************
+****************************************************************
 s05_applyGC_setupDecode.m
 
 For one participant, one phase and one conditions (i.e., face or random) at a time, extract the source waveform (over time) from pairs of the ROIs (i.e., 4 PFC and 4 sensory ROIs = 16 ROI combinations) and estimate the Granger Causality in the FORWARDS direction from the sensory node to the PFC node. Save each of the GC results by COMBINING all GC estimates from the 16 pairs and in a format ready for classification analysis in the next script.
 
-Inputs:
-Outputs:
+Inputs: for sensory node = CoordSorted_rmline_P0002_PhaseX_EBRem_XXX_by_TstatOverTime_0_to_500ms.mat (XXX = one of 4 sensory ROIs)
+for PFC node = CoordSorted_rmline_P0002_PhaseX_EBRem_XXX_by_TstatOverTime_0_to_500ms.mat (XXX = one of the 4 PFC ROIs)
+
+Outputs: GC_P0002_PhaseX_CVmethod_thisRep3_zscore_1_bw_XX_and_XXX_by_TstatOverTime_usingTrainProp_0.7_and_0_to_500ms.m (X = 1 to 3, XX = one of the 4 sensory ROIs and XXX = one of the PFC ROIs)
 
 
-********************************
+****************************************************************
 s06_decode_GC_F.m
 
 Using the GC estimates from the previous step (i.e., from the 16 combinatons of ROI pairs), run SVM classification (70/30 train/test split) using 10 random splits of the data (cross-validation) to determine if we can classify between a FACE or RANDOM trial using the GC estimates. The output results reflect the classifcation accuracy (10 repetitions) for this participant and phase.
 
-Inputs:
-Outputs:
+Inputs: GC_P0002_PhaseX_CVmethod_thisRep3_zscore_1_bw_XX_and_XXX_by_TstatOverTime_usingTrainProp_0.7_and_0_to_500ms.m
+Outputs: results_GC_toPFC_ForwardsFrom_Sensory_rmline_P0002_PhaseX_55Hz_MultiROI_ALL_PFC_ALL_FFA_ALL_OCC_0to500ms_10Reps.m
 
