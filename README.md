@@ -28,8 +28,10 @@ Here we take the raw EEG files per participant and assign the channels and trial
 We apply basic preprocessing steps of artefact detecton usin eyeblinks and noisy channels (>100 uv)
 Next, we split the files into either FACE or RANDOM and epoch based on the trigger times
 
-Inputs:
-Outputs:
+Inputs: Raw EEG files in EDF format: for example, 'P0002_Move_Markers.edf'
+        Fudicials used for source-allocaton 'chanFudicials_ShaftoFINAL.mat'
+
+Outputs: Partially pre-processed EEG data split by FACE or RANDOM trials: 'e_random_aEBn_noHP_spmeeg_P0002_Move_Markers.mat'
 
 
 ********************************
@@ -37,26 +39,31 @@ s01b_rmLineNoise.m
 
 Due to the presence of 60 Hz line noise in some participant's data (which was interferring with the decoding analysis), we removed the line noise per participant and FACE or RANDOM condition before implementing the final pre-processing script
 
-Inputs:
-Outputs:
+Inputs: ae_random_aEBn_noHP_spmeeg_P0002_Move_Markers.mat
+        ae_faces_aEBn_noHP_spmeeg_P0002_Move_Markers.mat
+Outputs: ae_rm_final_random_aEBn_noHP_spmeeg_P0002_Move_Markers.mat
+         ae_rm_final_faces_aEBn_noHP_spmeeg_P0002_Move_Markers
 
 
 ********************************
 s01c_final_EEG_preProcessing.m
 
-The final preprcoessing step of baseline correct is applied to the datefiles with line noise removed (rmline)
+The final preprcoessing step of baseline correct is applied to the datefiles with line noise removed (rmline) after we split the participant FACE and RANDOM trial files into INDIVIDUAL files per trial (we also remove any noisy trials or those with a button response).
 
-Inputs:
-Outputs:
-
+Inputs: ae_rm_final_random_aEBn_noHP_spmeeg_P0002_Move_Markers.mat
+        ae_rm_final_faces_aEBn_noHP_spmeeg_P0002_Move_Markers
+Outputs: 
+bm_Sae_rm_final_faces_aEBn_noHP_P0002_Phase1_-100to500ms_trial_X.mat (where X will equal from 1 to the number of trials)
+bm_Sae_rm_final_random_aEBn_noHP_P0002_Phase1_-100to500ms_trial_X.mat
 
 ********************************
 s02_sourceInv.m
 
 We can now take the single-trial ERPs and apply source conversion to determine cortical activity across the entire 3D brain during each trial (total of 8,196 voxels). For this, we rely on the SPM in-built source reconstruction function that utilises the Mutliple Sparse Priors greedy search method.
 
-Intputs:
-Outputs:
+Intputs: bm_Sae_rm_final_faces_aEBn_noHP_P0002_Phase1_-100to500ms_trial_X.mat
+         bm_Sae_rm_final_random_aEBn_noHP_P0002_Phase1_-100to500ms_trial_X.mat
+Outputs: As above (but now we have a source-level matrix assigned to these files and sourcewaves images)
 
 
 ********************************
@@ -66,8 +73,11 @@ Determine which voxel coordinates across the brain belong to each of the 8 defin
 
 Using this information, extract each of the single-trial source reconstructed estimates from EACH of the ROIs and save them in a file that will be used for the Granger Causality estimation in the next script.
 
-Inputs:
-Outputs:
+Inputs:  bm_Sae_rm_final_faces_aEBn_noHP_P0002_Phase1_-100to500ms_trial_X.mat
+         bm_Sae_rm_final_random_aEBn_noHP_P0002_Phase1_-100to500ms_trial_X.mat
+Outputs: Final_P0002_PhaseX_rmline_0to500ms_faces_Source_Waveform_at_for_ALL_trials_Coords_from_1_to_8196.mat (where X can equal 1 to 3)
+Final_P0002_PhaseX_rmline_0to500ms_random_Source_Waveform_at_for_ALL_trials_Coords_from_1_to_8196.mat 
+CoordIdxs_for_P0002_all8196_Phase_X.mat 
 
 ********************************
 s04_topCoord.m
@@ -76,8 +86,12 @@ Using the extracted source waveforms from each voxel, we now want to determine (
 
 Once we have determined this 'TOP VOXEL" within each of the 8 ROIs, we use this voxel coordinate and extract the data from Phase 1 and Phase 2 for use in our GC analysis.
 
-Inputs:
-Outputs:
+Inputs: Coordinates_8196_voxels_byROI.mat (this determines which voxel coordinates below to what ROI)
+        Final_P0002_PhaseX_rmline_0to500ms_faces_Source_Waveform_at_for_ALL_trials_Coords_from_1_to_8196.mat (where X = 1 to 3)
+        Final_P0002_PhaseX_rmline_0to500ms_random_Source_Waveform_at_for_ALL_trials_Coords_from_1_to_8196.mat (where X = 1 to 3)
+
+Outputs: CoordSorted_rmline_P0002_PhaseX_EBRem_XXX_by_TstatOverTime_0_to_500ms.mat (where X = 1 to 3 and XXX = one of the 8 ROIs)
+
 
 ********************************
 s05_applyGC_setupDecode.m
