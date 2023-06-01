@@ -1,5 +1,5 @@
 # Prefrontal_sensory_GC
-Code supporting Rowe, Garrido & Tsuchiya (2023)
+Supporting code for Rowe, Garrido & Tsuchiya (2023)
 
 Current theories of consciousness can be categorized to some extent by their predictions about the role of the prefrontal cortex (PFC) in conscious perception. One family of theories propose that the PFC is necessary for conscious perception. The other family postulates that the PFC is not necessary and that other areas (e.g., posterior cortical areas) are more important for conscious perception. 
 
@@ -124,3 +124,68 @@ Inputs: for sensory node = CoordSorted_rmline_P0002_PhaseX_EBRem_XXX_by_TstatOve
 for PFC node = CoordSorted_rmline_P0002_PhaseX_EBRem_XXX_by_TstatOverTime_0_to_500ms.mat (XXX = one of the 4 PFC ROIs)
 Outputs = results_SourceWaveform_allPFC_rmline_P0002_PhaseX_55Hz_MultiROI_0to500ms_10Reps.mat (X = Phase 1 - 3)
           results_SourceWaveform_allSensory_rmline_P0002_PhaseX_55Hz_MultiROI_0to500ms_10Reps.mat
+
+****************************************************************
+****************************************************************
+# Supplementary code
+The following scripts enable the analyses discussed in the Supplementary Material
+
+(a) supp_s08_decode_APz.m
+(b) supp_s08_decode_GC_B.m
+(c) supp_s08_GC_sensory_B.m
+(d) supp_s08_GC_sensory_F.m
+(e) supp_s08_decode_Oz.m
+(f) supp_s08_decode_PWR.m
+(g) supp_s08_decode_SWave.m
+
+****************************************************************
+****************************************************************
+
+supp_s08_decode_APz.m = Classification analysis using scalp-EEG from elecltrode APz
+
+Input ->
+Output ->
+
+****************************************************************
+
+supp_s08_decode_GC_B.m = Classification analysis using GC estimates BACKWARDS from PFC to sensory cortices
+
+Input ->
+Output ->
+
+****************************************************************
+
+supp_s08_decode_sensory_B.m = Classification analysis using GC estimates BACKWARDS from Fusiform Region to Occipital (sensory only)
+
+Input ->
+Output ->
+
+****************************************************************
+
+supp_s08_decode_sensory_F.m = Classification analysis using GC estimates FORWARDS from Occipital to Fusiform Region (sensory only)
+
+Input ->
+Output ->
+
+****************************************************************
+
+supp_s08_decode_Oz.m = Classification analysis using scalp-EEG from elecltrode Oz
+
+Input ->
+Output ->
+
+****************************************************************
+
+supp_s08_decode_PWR.m = Classificaton analysis using the PWR at each ROI (or grouped by PFC and sensory ROIs)
+
+Input ->
+Output ->
+
+****************************************************************
+
+supp_s08_decode_SWave.m = Classificaton analysis using the source-leve waveforms at each ROI (individually)
+
+Input ->
+Output ->
+
+****************************************************************
