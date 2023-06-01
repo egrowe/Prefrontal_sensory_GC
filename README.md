@@ -43,6 +43,7 @@ Due to the presence of 60 Hz line noise in some participant's data (which was in
 
 Inputs: ae_random_aEBn_noHP_spmeeg_P0002_Move_Markers.mat <br />
         ae_faces_aEBn_noHP_spmeeg_P0002_Move_Markers.mat  <br />
+        <br />
 Outputs: ae_rm_final_random_aEBn_noHP_spmeeg_P0002_Move_Markers.mat  <br />
          ae_rm_final_faces_aEBn_noHP_spmeeg_P0002_Move_Markers  <br />
 
@@ -54,7 +55,7 @@ The final preprcoessing step of baseline correct is applied to the datefiles wit
 
 Inputs: ae_rm_final_random_aEBn_noHP_spmeeg_P0002_Move_Markers.mat <br />
         ae_rm_final_faces_aEBn_noHP_spmeeg_P0002_Move_Markers  <br />
-        
+        <br />
 Outputs:  <br />
 bm_Sae_rm_final_faces_aEBn_noHP_P0002_Phase1_-100to500ms_trial_X.mat (where X will equal from 1 to the number of trials)  <br />
 bm_Sae_rm_final_random_aEBn_noHP_P0002_Phase1_-100to500ms_trial_X.mat <br />
@@ -66,6 +67,7 @@ We can now take the single-trial ERPs and apply source conversion to determine c
 
 Intputs: bm_Sae_rm_final_faces_aEBn_noHP_P0002_Phase1_-100to500ms_trial_X.mat  <br />
          bm_Sae_rm_final_random_aEBn_noHP_P0002_Phase1_-100to500ms_trial_X.mat  <br />
+         <br />
 Outputs: As above (but now we have a source-level matrix assigned to these files and sourcewaves images)  <br />
 
 
@@ -114,6 +116,7 @@ s06_decode_GC_F.m  <br />
 Using the GC estimates from the previous step (i.e., from the 16 combinatons of ROI pairs), run SVM classification (70/30 train/test split) using 10 random splits of the data (cross-validation) to determine if we can classify between a FACE or RANDOM trial using the GC estimates. The output results reflect the classifcation accuracy (10 repetitions) for this participant and phase.  <br />
 
 Inputs: GC_P0002_PhaseX_CVmethod_thisRep3_zscore_1_bw_XX_and_XXX_by_TstatOverTime_usingTrainProp_0.7_and_0_to_500ms.m  <br />
+<br />
 Outputs: results_GC_toPFC_ForwardsFrom_Sensory_rmline_P0002_PhaseX_55Hz_MultiROI_ALL_PFC_ALL_FFA_ALL_OCC_0to500ms_10Reps.m  <br />
 
 
@@ -147,34 +150,43 @@ The following scripts enable the analyses discussed in the Supplementary Materia
 supp_s08_decode_APz.m = Classification analysis using scalp-EEG from elecltrode APz  <br />
 
 Input -> NEW_ALL_APZ_XXXXX_TrialData_P0002_All_Phases.mat (where XXXX = faces or random) <br />
+ <br />
 Output -> results_APZ_decode_P0002_PhaseX_CVmethod_10REPS__AT_APZ__0to500ms_thisRepXX.mat (where X = Phase 1 to 3, XX = 1 to 10 repetitions) <br />
 
 ****************************************************************
 
 supp_s08_decode_GC_B.m = Classification analysis using GC estimates BACKWARDS from PFC to sensory cortices  <br />
 
-Input ->
-Output ->
+Inputs: GC_P0002_PhaseX_CVmethod_thisRep3_zscore_1_bw_XX_and_XXX_by_TstatOverTime_usingTrainProp_0.7_and_0_to_500ms.m (where X = Phase 1 to 3, XX = ROI1 and XXX = ROI2) <br />
+<br />
+Outputs: results_GC_fromPFC_Backto_Sensory_rmline_rmline_P0002_PhaseX_55Hz_MultiROI_ALL_PFC_ALL_FFA_ALL_OCC_0to500ms_10Reps.m  <br />
+
 
 ****************************************************************
 
 supp_s08_decode_sensory_B.m = Classification analysis using GC estimates BACKWARDS from Fusiform Region to Occipital (sensory only)  <br />
 
-Input ->
-Output ->
+Inputs: GC_P0002_PhaseX_CVmethod_thisRep3_zscore_1_bw_XX_and_XXX_by_TstatOverTime_usingTrainProp_0.7_and_0_to_500ms.m (where X = Phase 1 to 3, XX = ROI1 sensory and XXX = ROI2 sensory) <br />
+<br />
+Outputs: results_GC_fromFR_Backto_Occ_rmline_rmline_P0002_PhaseX_55Hz_MultiROI_ALL_FFA_ALL_OCC_0to500ms_10Reps.m  <br />
+
+
 
 ****************************************************************
 
 supp_s08_decode_sensory_F.m = Classification analysis using GC estimates FORWARDS from Occipital to Fusiform Region (sensory only)  <br />
 
-Input ->
-Output ->
+Inputs: GC_P0002_PhaseX_CVmethod_thisRep3_zscore_1_bw_XX_and_XXX_by_TstatOverTime_usingTrainProp_0.7_and_0_to_500ms.m (where X = Phase 1 to 3, XX = ROI1 sensory and XXX = ROI2 sensory) <br />
+<br />
+Outputs: results_GC_fromOcc_Forwardto_FR_rmline_rmline_P0002_PhaseX_55Hz_MultiROI_ALL_FFA_ALL_OCC_0to500ms_10Reps.m  <br />
+
 
 ****************************************************************
 
 supp_s08_decode_Oz.m = Classification analysis using scalp-EEG from elecltrode Oz  <br />
 
 Input -> NEW_ALL_OZ_XXXXX_TrialData_P0002_All_Phases.mat (where XXXX = faces or random) <br />
+ <br />
 Output -> results_OZ_decode_P0002_PhaseX_CVmethod_10REPS__AT_APZ__0to500ms_thisRepXX.mat (where X = Phase 1 to 3, XX = 1 to 10 repetitions) <br />
 
 
@@ -182,14 +194,17 @@ Output -> results_OZ_decode_P0002_PhaseX_CVmethod_10REPS__AT_APZ__0to500ms_thisR
 
 supp_s08_decode_PWR.m = Classificaton analysis using the PWR at each ROI (or grouped by PFC and sensory ROIs)  <br />
 
-Input ->
-Output ->
+Input ->  GC_PWR_rmline_P0002_PhaseX_CVmethod_thisRep1_NoFilt_wBC_zscore_1_bw_XXX_and_XX_by_TstatOverTime_usingTrainProp_0.7_and_0_to_500ms.mat'  (where X = Phase 1 to 3, XXX = PFC ROI and XX = sensory ROI)  <br />
+ <br />
+Output -> results_PWR_rmline_P0002_Phase1CVmethod_10REPS__ALL_XXX__0to500ms_thisRep1.mat (where XXX = PFC or SENSORY)  <br />
 
 ****************************************************************
 
 supp_s08_decode_SWave.m = Classificaton analysis using the source-leve waveforms at each ROI (individually)  <br />
 
-Input ->
-Output ->
+Input -> CoordSorted_rmline_P0002_allPhases_by_TopCoordPh3_BC_NoHP_EBRem_XXX_by_TstatOverTime_0_to_500ms.mat (where XXX = ROI)  <br />
+ <br />
+Output -> results_SWAVE_rmline_P0002_PhaseX_CVmethod_10REPS_MultiROI_XXX_0to500ms_thisRep1.mat (where X = Phase 1 to 3 and XXX = the ROI)  <br />
+
 
 ****************************************************************
