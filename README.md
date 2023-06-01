@@ -19,6 +19,7 @@ s03_extractSW.m
 s04_topCoord.m
 s05_applyGC_setupDecode.m
 s06_decode_GC_F.m
+s07_decode_SWaveGrouped.m
 
 
 # Description of each script
@@ -112,3 +113,13 @@ Using the GC estimates from the previous step (i.e., from the 16 combinatons of 
 Inputs: GC_P0002_PhaseX_CVmethod_thisRep3_zscore_1_bw_XX_and_XXX_by_TstatOverTime_usingTrainProp_0.7_and_0_to_500ms.m
 Outputs: results_GC_toPFC_ForwardsFrom_Sensory_rmline_P0002_PhaseX_55Hz_MultiROI_ALL_PFC_ALL_FFA_ALL_OCC_0to500ms_10Reps.m
 
+
+****************************************************************
+s07_decode_SWaveGrouped.m
+
+For one participant and one phase, use the source waveform (over time) from either sensory or PFC ROIs (i.e., 4 PFC or 4 sensory ROIs).  Run SVM classification (70/30 train/test split) using 10 random splits of the data (cross-validation) to determine if we can classify between a FACE or RANDOM trial using the GC estimates. The output results reflect the classifcation accuracy (10 repetitions) for this participant and phase. 
+
+Inputs: for sensory node = CoordSorted_rmline_P0002_PhaseX_EBRem_XXX_by_TstatOverTime_0_to_500ms.mat (XXX = one of 4 sensory ROIs)
+for PFC node = CoordSorted_rmline_P0002_PhaseX_EBRem_XXX_by_TstatOverTime_0_to_500ms.mat (XXX = one of the 4 PFC ROIs)
+Outputs = results_SourceWaveform_allPFC_rmline_P0002_PhaseX_55Hz_MultiROI_0to500ms_10Reps.mat (X = Phase 1 - 3)
+          results_SourceWaveform_allSensory_rmline_P0002_PhaseX_55Hz_MultiROI_0to500ms_10Reps.mat
