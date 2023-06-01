@@ -21,7 +21,7 @@ s05_applyGC_setupDecode.m
 s06_decode_GC_F.m
 
 
-# Description of each of the scripts
+# Description of each script
 s01a_EEG_preProcessing.m
 
 Here we take the raw EEG files per participant and assign the channels and trial type triggers.
