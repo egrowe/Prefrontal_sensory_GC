@@ -12,11 +12,10 @@ function s06_decode_ALL_new_rmline_SWaveGrouped_PFC_Ph1(arrayInput)
 % Sensory ROIs = {'L_FFA','R_FFA','L_Occ','R_Occ'}
 
 %Add the libSVM decoding library to the path
-cd(['/fs03/ot95/ShaftoDCM/decode_libSVM/libsvm/matlab'])
+cd(['../decode_libSVM/libsvm/matlab'])
 make
 
-addpath(genpath(['/fs03/ot95/ShaftoDCM/decode_libSVM/libsvm/matlab']))
-cd(['/fs03/ot95/ShaftoDCM/'])
+addpath(genpath(['../decode_libSVM/libsvm/matlab']))
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% INPUT: Settings and filenames for extracting ROI data
