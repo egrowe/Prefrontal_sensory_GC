@@ -1,6 +1,6 @@
 %% Visualise and decode NP coherence, power and Granger Causality results
 
-function s06_decode_ALL_new_rmline_SWaveGrouped_PFC_Ph1(arrayInput)
+function s07a_decode_SWaveGrouped(arrayInput)
 
 % This script uses SVM classification (10-fold cross-validation) to
 % classify whether the source-level waveforms contain information about the
